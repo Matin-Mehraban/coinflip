@@ -1,0 +1,186 @@
+
+/* ============ Design Tokens ============ */
+:root{
+  --bg: radial-gradient(120% 120% at 50% 0%, #0f1a33 0%, #0b1220 50%, #0a1020 100%);
+  --text:#E8ECF6;
+  --muted:#9AA6BF;
+  --brand:#2663FF;
+  --elev: rgba(38,99,255,.35);
+  --header-h: 68px;      /* will be updated by JS to real height */
+  --cta-h: 60px;         /* mobile default */
+  --radius: 16px;
+  --shadow: 0 10px 30px var(--elev);
+  --container: 1024px;
+  --space: 20px;
+}
+
+@media(min-width:960px){
+  :root{ --cta-h: 64px }
+}
+
+/* ============ Base ============ */
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  padding-top: var(--header-h);
+  color:var(--text);
+  font-family:'Modam',system-ui,-apple-system,'Segoe UI',Roboto,'Vazirmatn',sans-serif;
+  background:var(--bg);
+}
+
+/* Typography */
+.h1{font-weight:900; line-height:1.2; letter-spacing:-.2px; font-size:clamp(26px,6vw,48px); margin:0 0 8px}
+.p{margin:0; color:var(--muted); font-size:clamp(14px,2.6vw,16px)}
+
+/* Layout */
+.app-header{position:fixed; top:0; left:0; right:0; z-index:9999; background:rgba(15,26,51,.92); backdrop-filter:blur(6px)}
+.header-inner{max-width:var(--container); margin:0 auto; padding:12px var(--space); display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap}
+.divider{height:1px; background:rgba(255,255,255,.08)}
+
+.container{max-width:var(--container); margin:0 auto; padding:24px var(--space) calc(var(--cta-h) + 110px)}
+
+/* Stage */
+.stage{display:grid; place-items:center; margin-top:28px; position:relative}
+.coin{ width:clamp(260px,50vw,520px); height:clamp(260px,50vw,520px); position:relative; perspective:1200px; transform-style:preserve-3d; will-change:transform; cursor:pointer}
+.face{position:absolute; inset:0; width:100%; height:100%; border-radius:50%; backface-visibility:hidden; transform-style:preserve-3d; filter:drop-shadow(0 30px 30px rgba(0,0,0,.35))}
+.front{transform:rotateY(0deg)}
+.back {transform:rotateY(180deg)}
+
+/* Result */
+.result{ margin-top:22px; margin-bottom:calc(var(--cta-h) + 48px); min-height:28px; text-align:center; font-weight:900; font-size:clamp(18px,2.4vw,22px); color:#C9D6FF}
+
+/* CTA */
+.cta{ position:fixed; left:16px; right:16px; bottom:max(16px, env(safe-area-inset-bottom)); height:var(--cta-h);
+      display:flex; align-items:center; justify-content:center; gap:10px;
+      border:0; border-radius:calc(var(--radius) + 2px); background:var(--brand); color:#fff; font-weight:900; 
+      font-size:16px; box-shadow:var(--shadow); z-index:5000; font-family:'Modam',system-ui,-apple-system,'Segoe UI',Roboto,'Vazirmatn',sans-serif}
+.cta:disabled{opacity:.85; cursor:not-allowed}
+.spinner{ width:18px; height:18px; border-radius:50%; border:3px solid rgba(255,255,255,.35); border-top-color:#fff; animation:spin .8s linear infinite }
+@keyframes spin{ to{ transform:rotate(360deg) } }
+
+/* Header bits */
+.brand{margin:0; font-weight:900; font-size:18px}
+.twitter{color:#7aa7ff; text-decoration:none; font-weight:700; display:inline-flex; align-items:center; gap:8px}
+.twitter:hover{text-decoration:underline}
+
+/* Mobile tuning */
+  .h1{ font-size:clamp(28px,9.5vw,50px) }
+  .container{ padding-bottom: calc(var(--cta-h) + 120px) }
+  .coin{ width:clamp(300px,72vw,560px); height:clamp(300px,72vw,560px) }
+}
+
+/* Fonts */
+@font-face{font-family:'Modam';src:url('fonts/Modam-Regular.ttf') format('truetype');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Modam';src:url('fonts/Modam-Medium.ttf') format('truetype');font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:'Modam';src:url('fonts/Modam-SemiBold.ttf') format('truetype');font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:'Modam';src:url('fonts/Modam-Bold.ttf') format('truetype');font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:'Modam';src:url('fonts/Modam-ExtraBold.ttf') format('truetype');font-weight:800;font-style:normal;font-display:swap}
+@font-face{font-family:'Modam';src:url('fonts/Modam-Black.ttf') format('truetype');font-weight:900;font-style:normal;font-display:swap}
+@font-face{font-family:'Modam';src:url('fonts/Modam-Light.ttf') format('truetype');font-weight:300;font-style:normal;font-display:swap}
+@font-face{font-family:'Modam';src:url('fonts/Modam-ExtraLight.ttf') format('truetype');font-weight:200;font-style:normal;font-display:swap}
+
+
+/* ===== Ultra-small phones (<= 480px) ===== */
+
+/* ===== Mobile (<= 480px) custom ===== */
+@media(max-width:480px){
+  :root{ --cta-h: 64px }
+  .header-inner{ padding:12px 20px }
+  .h1{ font-size:28px; }             /* Fixed 28px title on mobile */
+  .container{ padding:24px 32px calc(var(--cta-h) + 110px); }  /* 32px sides, 32px extra bottom */
+  .coin{ width:min(78vw, 360px); height:min(78vw, 360px) }
+  .result{ margin-bottom:32px; }      /* keep result above bottom area */
+}
+
+  .h1{ font-size:28px }
+  .container{ padding:24px 32px 32px }
+  .coin{ width:240px; height:240px }
+}
+
+/* ===== Tablets / small laptop widths (481px–1023px) ===== */
+@media(min-width:481px) and (max-width:1023px){
+  :root{ --cta-h: 64px }
+  .h1{ font-size:clamp(28px,6.5vw,40px) }
+  .coin{ width:clamp(200px,35vw,360px); height:clamp(200px,35vw,360px) }
+}
+
+/* ===== Small desktop baseline (>= 1024px) ===== */
+  .container{ padding:28px 20px calc(var(--cta-h) + 128px) }
+  .h1{ font-size:40px }
+  .result{ font-size:18px; margin-bottom:calc(var(--cta-h) + 40px) }
+  .coin{ width:120px; height:120px }
+}
+
+/* Desktop center box & no-scroll */
+.desk-box{ display:block; }
+
+  .desk-box{
+    width:min(960px, 92vw);
+    height:calc(100vh - var(--header-h) - var(--cta-h) - 40px);
+    display:grid;
+    grid-auto-rows:min-content;
+    align-content:start;
+    justify-items:center;
+    gap:18px;
+    padding:24px 40px;
+    background:rgba(255,255,255,0.02);
+    border:1px solid rgba(255,255,255,0.06);
+    border-radius:20px;
+    box-shadow:0 20px 60px rgba(0,0,0,.35) inset, 0 30px 60px rgba(0,0,0,.25);
+    backdrop-filter:blur(4px);
+  }
+  .hero{ margin-top:0 }
+  .h1{ font-size:44px }
+  .coin{ width:180px; height:180px }  /* scaled to fit without scroll */
+  .result{ margin-bottom:24px }
+}
+
+/* Mobile: remove box visuals (use full-bleed with 32px padding), bigger bottom padding control */
+  .container{ padding:24px 32px calc(var(--cta-h) + 32px) }
+  .result{ margin-bottom:32px }
+}
+
+
+@media(min-width:401px){
+  .coin{ width:230px; height:230px }
+  .h1{ font-size:32px }
+}
+
+
+/* ===== Mobile & Tablet (<=1023px): coin fill and fixed CTA with 32px sides ===== */
+@media(max-width:1023px){
+  .desk-box{ background:none; border:none; box-shadow:none; padding:0; width:auto; height:auto }
+  .container{ padding:24px 32px calc(var(--cta-h) + 32px) }
+  .coin{ width:100%; max-width:calc(100vw - 64px); aspect-ratio:1 / 1; }
+  .result{ margin-bottom:32px }
+  .cta{
+    position:fixed; left:32px; right:32px;
+    bottom:max(16px, env(safe-area-inset-bottom));
+    width:auto; height:var(--cta-h);
+    border-radius:16px;
+  }
+}
+
+/* ===== Desktop (>=1024px): centered box, no page scroll, CTA inside box ===== */
+@media(min-width:1024px){
+  html,body{ height:100%; overflow:hidden }
+  .container{ height:calc(100vh - var(--header-h)); display:grid; place-items:center; padding:0 20px 16px }
+  .desk-box{
+    width:min(960px, 92vw);
+    height:calc(100vh - var(--header-h) - 24px);
+    display:grid;
+    grid-template-rows:min-content min-content 1fr min-content; /* hero, stage, spacer, cta */
+    align-content:start; justify-items:center; gap:20px;
+    padding:24px 40px;
+    background:rgba(255,255,255,0.02);
+    border:1px solid rgba(255,255,255,0.06);
+    border-radius:20px;
+    box-shadow:0 20px 60px rgba(0,0,0,.35) inset, 0 30px 60px rgba(0,0,0,.25);
+    backdrop-filter:blur(4px);
+  }
+  .h1{ font-size:32px }
+  .coin{ width:180px; height:180px }
+  .result{ margin-bottom:0 }
+  .cta{ position:static; width:100%; height:56px; border-radius:16px }
+}
